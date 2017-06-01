@@ -10,6 +10,10 @@ using HexTbs.Battle.Player;
 using HexTbs.Battle.Unit;
 using Microsoft.Xna.Framework.Input;
 using HexTbs.Battle.Effects;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
+using HexTbs.Battle.Unit.SquadModels;
 
 namespace HexTbs.Battle
 {
@@ -59,6 +63,8 @@ namespace HexTbs.Battle
          currentPlayer.CurrentSquad.SelectSquad(Map, p1, p2);
 
          background = Statics.Textures["BattleBg//marstest"];
+
+         CreateSquadXml();
       }
 
       public override void Draw(SpriteBatch sp)
@@ -304,6 +310,35 @@ namespace HexTbs.Battle
          }
          foreach (BVisualEffect e in removes)
             effects.Remove(e);
+      }
+
+      public void CreateSquadXml()
+      {
+         XmlSerializer xsSubmit = new XmlSerializer(typeof(VehicleSquadModel));
+         var xml = "";
+
+         BVehicleSquad veh = new BVehicleSquad(Vector2.Zero);
+         VehicleSquadModel model = new VehicleSquadModel();
+         model.Actions = veh.actionCount;
+         model.Defence = veh.Defence;
+         model.MoveRange = veh.MoveRange;
+         model.MoveType = veh.MoveType;
+         model.SightRange = veh.SightRange;
+         model.Toughness = veh.Toughness;
+         model.FrontArmor = veh.FrontArmor;
+         model.SideArmor = veh.SideArmor;
+         model.RearArmor = veh.RearArmor;
+
+         using (var sww = new StringWriter())
+         {
+            using (XmlWriter writer = XmlWriter.Create(sww))
+            {
+               xsSubmit.Serialize(writer, model);
+               xml = sww.ToString(); // Your XML
+            }
+         }
+
+         Console.WriteLine(xml);
       }
 
    }

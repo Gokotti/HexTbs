@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<SquadModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Actions>2</Actions>
+	<MoveRange>6</MoveRange>
+	<MoveType>Tracked</MoveType>
+	<SightRange>10</SightRange>
+	<Toughness>5</Toughness>
+	<Defence>2</Defence>
+</SquadModel>

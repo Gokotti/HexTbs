@@ -59,7 +59,7 @@ namespace HexTbs.Battle.Unit
          List<Texture2D> txts = new List<Texture2D>();
          txts.Add(Statics.Textures["Squads//tank"]);
          txts.Add(Statics.Textures["Squads//ifv"]);
-         txts.Add(Statics.Textures["Squads//rifle"]);
+         txts.Add(Statics.Textures["Squads//lighttank"]);
 
          texture = txts[DieRoll.RollDice(1, 3, -1)];
 
@@ -136,12 +136,6 @@ namespace HexTbs.Battle.Unit
          return texture;
       }
 
-      public Vector2 GetTextureOrigin()
-      {
-         Texture2D txt = texture;
-         return new Vector2(txt.Width / 2, txt.Height / 2);
-      }
-
       public void AddAction(BSquadAction action)
       {
          SightCalculated = false;
@@ -170,12 +164,12 @@ namespace HexTbs.Battle.Unit
       {
          if (damage == 0)
          {
-            Toughness--;
+            /*Toughness--;
             if (Toughness == 0)
             {
                IsDead = true;
                return true;
-            }
+            }*/
             return false;
          }
          else

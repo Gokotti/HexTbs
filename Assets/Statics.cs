@@ -67,5 +67,10 @@ namespace Assets
 
          return (Texture2D)ret;
       }
+
+      public static Vector2 GetTextureOrigin(Texture2D txt)
+      {
+         return new Vector2(txt.Width / 2, txt.Height / 2);
+      }
    }
 }

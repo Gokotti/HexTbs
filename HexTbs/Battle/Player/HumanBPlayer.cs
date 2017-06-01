@@ -10,6 +10,7 @@ using Assets;
 using Microsoft.Xna.Framework.Input;
 using HexTbs.Battle.Unit.Actions;
 using HexTbs.Battle.Effects;
+using HexTbs.Battle.Unit.SquadModels;
 
 namespace HexTbs.Battle.Player
 {
@@ -23,19 +24,21 @@ namespace HexTbs.Battle.Player
          CurrentSquadIndex = 0;
       }
 
+      VehicleSquadModel vsm = BVehicleSquad.LoadSquadModel();
+
       public void AddDummies(int x)
       {
          // Lisää ukkoja x-linjalle
          for (int i = 0; i < 3; i++)
          {
-            BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, 3 + i));
+            BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, 3 + i), vsm);
             Squads.Add(sq);
          }
       }
 
       public void AddDummy(int x, int y)
       {
-         BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, y));
+         BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, y), vsm);
          Squads.Add(sq);
       }
 

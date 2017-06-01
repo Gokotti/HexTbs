@@ -57,7 +57,11 @@
     <Compile Include="Battle\Unit\BSquad.cs" />
     <Compile Include="Battle\Unit\BVehicleSquad.cs" />
     <Compile Include="Battle\Unit\Actions\BSquadAction.cs" />
+    <Compile Include="Battle\Unit\BVehicleTurret.cs" />
     <Compile Include="Battle\Unit\SquadModels\SquadModel.cs" />
+    <Compile Include="Battle\Unit\SquadModels\VehicleSquadModel.cs" />
+    <Compile Include="Battle\Unit\SquadModels\VehicleWeaponModel.cs" />
+    <Compile Include="Battle\Unit\SquadModels\WeaponModel.cs" />
     <Compile Include="Battle\Unit\Weapons\BVehicleWeapon.cs" />
     <Compile Include="Battle\Unit\Weapons\BWeapon.cs" />
     <Compile Include="Frame.cs" />

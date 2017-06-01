@@ -9,6 +9,9 @@ using System.Text;
 using HexTbs.Battle.Map;
 using HexTbs.Battle.Player;
 using Microsoft.Xna.Framework.Graphics;
+using HexTbs.Battle.Unit.SquadModels;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace HexTbs.Battle.Unit
 {
@@ -17,6 +20,8 @@ namespace HexTbs.Battle.Unit
       public BVehicleWeapon MainGun { get; protected set; }
       public List<BVehicleWeapon> Weapons { get; protected set; }
 
+      public BVehicleTurret MainTurret { get; protected set; }
+
       // Panssarointi
       public int FrontArmor { get; protected set; }
       public int SideArmor { get; protected set; }
@@ -24,7 +29,7 @@ namespace HexTbs.Battle.Unit
 
       public BVehicleSquad(Vector2 _position) : base(_position)
       {
-         MainGun = new BVehicleWeapon(20, 10, 6, 3, 3, 1);
+         MainGun = new BVehicleWeapon(20, 10, 6, 3, 1, 1);
          Weapons = new List<BVehicleWeapon>();
 
          Defence = 2;
@@ -35,6 +40,42 @@ namespace HexTbs.Battle.Unit
          RearArmor = 3;
 
          MoveRange = 6;
+      }
+
+      public BVehicleSquad(Vector2 _position, VehicleSquadModel model) : base(_position)
+      {
+         MainGun = new BVehicleWeapon(20, 10, 6, 3, 1, 1);
+         Weapons = new List<BVehicleWeapon>();
+
+         Defence = model.Defence;
+         Toughness = model.Toughness;
+         FrontArmor = model.FrontArmor;
+         SideArmor = model.SideArmor;
+         RearArmor = model.RearArmor;
+         MoveRange = model.MoveRange;
+         actionCount = model.Actions;
+         MoveRange = model.MoveRange;
+         MoveType = model.MoveType;
+         SightRange = model.SightRange;
+
+         texture = Statics.Textures["Squads//tank"];
+
+         Direction = (HexDirection)DieRoll.RollDice() - 1;
+
+         MainTurret = new BVehicleTurret(Direction, MainGun);
+      }
+
+      public static VehicleSquadModel LoadSquadModel()
+      {
+         VehicleSquadModel model = null;
+         string path = "Content/Squads/vehtest.xml";
+
+         XmlSerializer serializer = new XmlSerializer(typeof(VehicleSquadModel));
+         StreamReader reader = new StreamReader(path);
+         model = (VehicleSquadModel)serializer.Deserialize(reader);
+         reader.Close();
+
+         return model;
       }
 
       public override void SelectSquad(BMap map, BPlayer own, BPlayer enemy)
@@ -90,7 +131,10 @@ namespace HexTbs.Battle.Unit
       public override void Draw(SpriteBatch sp, BCamera cam, Color color)
       {
          float angle = MathRoutines.DegreeToRadian(BHex.DirectionToAngle(Direction));
-         sp.Draw(GetTexture(), cam.GetVector(Position), null, color, angle, GetTextureOrigin(), 0.75f, SpriteEffects.None, 0);
+         sp.Draw(GetTexture(), cam.GetVector(Position), null, color, angle, Statics.GetTextureOrigin(GetTexture()), 0.75f, SpriteEffects.None, 0);
+
+         float turretAngle = MathRoutines.DegreeToRadian(BHex.DirectionToAngle(MainTurret.Direction));
+         sp.Draw(MainTurret.Texture, cam.GetVector(Position), null, color, turretAngle, MainTurret.AxisPoint, 0.75f, SpriteEffects.None, 0);
       }
 
       public override void Update(GameTime gt, bool current)
