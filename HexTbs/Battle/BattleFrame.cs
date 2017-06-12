@@ -47,15 +47,16 @@ namespace HexTbs.Battle
          Map.Camera = Camera;
 
          Map.Save();
+         //CreateSquadXml();
 
          p1 = new HumanBPlayer();
          p2 = new HumanBPlayer();
          p1.Init(Map, p2);
          p2.Init(Map, p1);
 
-         foreach (BMapModelCoordinate bmmc in bmm.P1Starts)
+         foreach (ModelCoordinate bmmc in bmm.P1Starts)
             (p1 as HumanBPlayer).AddDummy(bmmc.X, bmmc.Y);
-         foreach (BMapModelCoordinate bmmc in bmm.P2Starts)
+         foreach (ModelCoordinate bmmc in bmm.P2Starts)
             (p2 as HumanBPlayer).AddDummy(bmmc.X, bmmc.Y);
 
          p1.InitPhase(BattlePhase.Move);
@@ -64,7 +65,6 @@ namespace HexTbs.Battle
 
          background = Statics.Textures["BattleBg//marstest"];
 
-         CreateSquadXml();
       }
 
       public override void Draw(SpriteBatch sp)
@@ -328,6 +328,21 @@ namespace HexTbs.Battle
          model.FrontArmor = veh.FrontArmor;
          model.SideArmor = veh.SideArmor;
          model.RearArmor = veh.RearArmor;
+         model.Texture = "Squads//tank";
+
+         model.Turret = new VehicleTurretModel();
+         model.Turret.AxisPoint = new ModelCoordinate();
+         model.Turret.AxisPoint.X = 25; //(int)veh.MainTurret.AxisPoint.X;
+         model.Turret.AxisPoint.Y = 17; //(int)veh.MainTurret.AxisPoint.Y;
+         model.Turret.Texture = "Squads//tank_turret";
+
+         model.Turret.Weapon = new VehicleWeaponModel();
+         model.Turret.Weapon.Accuracy = veh.MainTurret.Weapon.Accuracy;
+         model.Turret.Weapon.FirePower = veh.MainTurret.Weapon.FirePower;
+         model.Turret.Weapon.Penetration = veh.MainTurret.Weapon.Penetration;
+         model.Turret.Weapon.Range = veh.MainTurret.Weapon.Range;
+         model.Turret.Weapon.Repeat = veh.MainTurret.Weapon.Repeat;
+         model.Turret.Weapon.ShotsAmount = veh.MainTurret.Weapon.ShotsAmount;
 
          using (var sww = new StringWriter())
          {

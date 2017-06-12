@@ -12,18 +12,14 @@ namespace HexTbs.Battle.Map
       public int Width { get; set; }
       public int Height { get; set; }
       public List<string> Hexes { get; set; }
-      public List<BMapModelCoordinate> P1Starts { get; set; }
-      public List<BMapModelCoordinate> P2Starts { get; set; }
+      public List<ModelCoordinate> P1Starts { get; set; }
+      public List<ModelCoordinate> P2Starts { get; set; }
 
       public BMapModel()
       {
       }
    }
 
-   public class BMapModelCoordinate
-   {
-      public int X { get; set; }
-      public int Y { get; set; }
-   }
+   
 }
 

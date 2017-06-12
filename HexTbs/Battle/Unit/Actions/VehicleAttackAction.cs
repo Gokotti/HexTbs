@@ -19,6 +19,7 @@ namespace HexTbs.Battle.Unit.Actions
       protected BVehicleWeapon Weapon {get; set; }
 
       protected bool hit = false;
+      protected bool penetrated = false;
       protected bool over = false;
       protected int damageGiven = 0;
 
@@ -53,6 +54,7 @@ namespace HexTbs.Battle.Unit.Actions
 
          // Heitetään nopat
          int attackRoll = DieRoll.RollDice(1, 20, 0);
+         int armorRoll = DieRoll.RollDice(1, 10, 0);
          int damageRoll = DieRoll.RollDice(1, 10, 0);
 
          int attack = GetAttack();
@@ -65,32 +67,40 @@ namespace HexTbs.Battle.Unit.Actions
          int toughness = GetToughness();
 
          PrintHitChances(attack, defend);
-         PrintDamageChances(penetration, armor, damage, toughness);
+         PrintPenetrationChances(penetration, armor);
+         PrintDamageChances(damage, toughness);
 
-         int attackGiven = attack - defend + attackRoll - 10;
-         if (attackGiven >= 0 && attackRoll != 1)
+         int attackGiven = attack - defend + attackRoll;
+         if (attackGiven >= (20/2) && attackRoll != 1)
             hit = true;
+
+         int penGiven = penetration - armor + armorRoll;
+         if (penGiven >= (10/2))
+            penetrated = true;
 
          if (enemy is BVehicleSquad)
          {
-            int armorSave = armor - penetration;
-            if (armorSave < 0)
-               armorSave = 0;
-
-            damageGiven = damage - (armorSave + toughness) + damageRoll - 5;
-
-            //if (hit && damageGiven > 0 && damageRoll != 1)
-            //   damaged = true;
+            if (hit)
+            {
+               if (penetrated)
+               {
+                  damageGiven = damage - toughness + damageRoll - 5;
+               }
+            }
          }
          else
          {
+
             damageGiven = damage - toughness + damageRoll - 5;
-            //if (hit && damageGiven > 0  && damageRoll != 1)
-               //damaged = true;
          }
 
          if (damageGiven < 0)
             damageGiven = 0;
+
+         Console.WriteLine("Tulta " + attackGiven + " " + penGiven+ " " + damageGiven);
+
+         // Turn the turrets
+         squad.MainTurret.TurnTurret(enemy.Position);
       }
 
       protected void PrintHitChances(float a, float d)
@@ -100,21 +110,32 @@ namespace HexTbs.Battle.Unit.Actions
 
          if (prob >= 100)
             prob = 95;
+         else if (prob < 0)
+            prob = 0;
 
          Console.WriteLine("HitChange: " + prob + "%");
       }
 
-      protected void PrintDamageChances(float p, float a, float d, float t)
+      protected void PrintPenetrationChances(float p, float a)
       {
-         float arms = a - p;
-         if (arms < 0)
-            arms = 0;
-
-         float prob = (5f + (d - t - arms)) / 10f;
+         float prob = (5f + (p - a)) / 10f;
          prob *= 100;
 
          if (prob >= 100)
-            prob = 95;
+            prob = 100;
+         if (prob < 0)
+            prob = 0;
+
+         Console.WriteLine("Penetration: " + prob + "%");
+      }
+
+      protected void PrintDamageChances(float d, float t)
+      {
+         float prob = (5f + (d - t)) / 10f;
+         prob *= 100;
+
+         if (prob >= 100)
+            prob = 100;
 
          Console.WriteLine("DamageChange: " + prob + "%");
       }
@@ -122,6 +143,13 @@ namespace HexTbs.Battle.Unit.Actions
       protected int GetAttack()
       {
          int attack = Weapon.Accuracy;
+
+         if (Squad.MoveCompleted)
+            attack -= 2;
+
+         if (attack < 0)
+            attack = 0;
+
          return attack;
       }
 
@@ -232,7 +260,7 @@ namespace HexTbs.Battle.Unit.Actions
          }
 
          // Lopuksi otetaan damaget
-         if (over && hit)
+         if (over && penetrated && hit)
          {
             Enemy.TakeDamage(damageGiven);
          }

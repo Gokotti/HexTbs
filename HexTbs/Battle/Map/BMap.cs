@@ -174,19 +174,19 @@ namespace HexTbs.Battle.Map
             model.Hexes.Add(str);
          }*/
 
-         model.P1Starts = new List<BMapModelCoordinate>();
-         model.P1Starts.Add(new BMapModelCoordinate() { X = 1, Y = 1 });
-         model.P1Starts.Add(new BMapModelCoordinate() { X = 1, Y = 2 });
-         model.P1Starts.Add(new BMapModelCoordinate() { X = 1, Y = 3 });
-         model.P1Starts.Add(new BMapModelCoordinate() { X = 1, Y = 4 });
-         model.P1Starts.Add(new BMapModelCoordinate() { X = 1, Y = 5 });
+         model.P1Starts = new List<ModelCoordinate>();
+         model.P1Starts.Add(new ModelCoordinate() { X = 1, Y = 1 });
+         model.P1Starts.Add(new ModelCoordinate() { X = 1, Y = 2 });
+         model.P1Starts.Add(new ModelCoordinate() { X = 1, Y = 3 });
+         model.P1Starts.Add(new ModelCoordinate() { X = 1, Y = 4 });
+         model.P1Starts.Add(new ModelCoordinate() { X = 1, Y = 5 });
 
-         model.P2Starts = new List<BMapModelCoordinate>();
-         model.P2Starts.Add(new BMapModelCoordinate() { X = 18, Y = 14 });
-         model.P2Starts.Add(new BMapModelCoordinate() { X = 18, Y = 15 });
-         model.P2Starts.Add(new BMapModelCoordinate() { X = 18, Y = 16 });
-         model.P2Starts.Add(new BMapModelCoordinate() { X = 18, Y = 17 });
-         model.P2Starts.Add(new BMapModelCoordinate() { X = 18, Y = 18 });
+         model.P2Starts = new List<ModelCoordinate>();
+         model.P2Starts.Add(new ModelCoordinate() { X = 18, Y = 14 });
+         model.P2Starts.Add(new ModelCoordinate() { X = 18, Y = 15 });
+         model.P2Starts.Add(new ModelCoordinate() { X = 18, Y = 16 });
+         model.P2Starts.Add(new ModelCoordinate() { X = 18, Y = 17 });
+         model.P2Starts.Add(new ModelCoordinate() { X = 18, Y = 18 });
 
          XmlSerializer xsSubmit = new XmlSerializer(typeof(BMapModel));
          var xml = "";

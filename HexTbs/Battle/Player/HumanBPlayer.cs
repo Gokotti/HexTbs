@@ -24,21 +24,14 @@ namespace HexTbs.Battle.Player
          CurrentSquadIndex = 0;
       }
 
-      VehicleSquadModel vsm = BVehicleSquad.LoadSquadModel();
-
-      public void AddDummies(int x)
-      {
-         // Lisää ukkoja x-linjalle
-         for (int i = 0; i < 3; i++)
-         {
-            BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, 3 + i), vsm);
-            Squads.Add(sq);
-         }
-      }
-
       public void AddDummy(int x, int y)
       {
-         BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, y), vsm);
+         List<VehicleSquadModel> vehicles = new List<VehicleSquadModel>();
+         vehicles.Add(BVehicleSquad.LoadSquadModel("Content/Squads/vehtest.xml"));
+         vehicles.Add(BVehicleSquad.LoadSquadModel("Content/Squads/light.xml"));
+         vehicles.Add(BVehicleSquad.LoadSquadModel("Content/Squads/ifv.xml"));
+
+         BVehicleSquad sq = new BVehicleSquad(map.GetCoordinates(x, y), vehicles[DieRoll.RollDice(1, 3, -1)]);
          Squads.Add(sq);
       }
 
@@ -98,7 +91,7 @@ namespace HexTbs.Battle.Player
                   {
                      int range = 0;
                      if (csq is BVehicleSquad)
-                        range = (csq as BVehicleSquad).MainGun.Range;
+                        range = (csq as BVehicleSquad).MainTurret.Weapon.Range;
 
                      if (csq.VisibleEnemies != null && csq.VisibleEnemies.Contains(enemyTarget) && 
                         csq.CanShootEnemy(map, this, enemy, enemyTarget))
@@ -109,7 +102,7 @@ namespace HexTbs.Battle.Player
                            if (enemyTarget is BVehicleSquad)
                            {
                               BVehicleSquad evsqd = enemyTarget as BVehicleSquad;
-                              csq.AddAction(new VehicleAttackAction(this, vcsq, evsqd, vcsq.MainGun));
+                              csq.AddAction(new VehicleAttackAction(this, vcsq, evsqd, vcsq.MainTurret.Weapon));
                            }
                         }
                      }

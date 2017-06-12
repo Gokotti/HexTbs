@@ -352,3 +352,33 @@
 /processorParam:TextureFormat=Color
 /build:Images/Squads/tank_turret.png
 
+#begin Squads/ifv.xml
+/copy:Squads/ifv.xml
+
+#begin Squads/light.xml
+/copy:Squads/light.xml
+
+#begin Images/Squads/ifv_turret.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Squads/ifv_turret.png
+
+#begin Images/Squads/lighttank_turret.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Squads/lighttank_turret.png
+

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-16"?>
 <VehicleSquadModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Actions>2</Actions>
-	<MoveRange>4</MoveRange>
+	<MoveRange>6</MoveRange>
 	<MoveType>Tracked</MoveType>
 	<SightRange>20</SightRange>
 	<Toughness>5</Toughness>
-	<Defence>2</Defence>
+	<Defence>3</Defence>
 	<Turret>
 		<Weapon>
 			<Range>20</Range>
 			<Accuracy>10</Accuracy>
-			<FirePower>6</FirePower>
-			<Penetration>8</Penetration>
-			<ShotsAmount>1</ShotsAmount>
+			<FirePower>4</FirePower>
+			<Penetration>5</Penetration>
+			<ShotsAmount>3</ShotsAmount>
 			<Repeat>1</Repeat>
 		</Weapon>
 		<AxisPoint>
-			<X>25</X><Y>17</Y>
+			<X>12</X><Y>14</Y>
 		</AxisPoint>
-		<Texture>Squads//tank_turret</Texture>
+		<Texture>Squads//ifv_turret</Texture>
 	</Turret>
-	<Texture>Squads//tank</Texture>
-	<FrontArmor>8</FrontArmor>
-	<SideArmor>5</SideArmor>
+	<Texture>Squads//ifv</Texture>
+	<FrontArmor>5</FrontArmor>
+	<SideArmor>4</SideArmor>
 	<RearArmor>3</RearArmor>
 </VehicleSquadModel>

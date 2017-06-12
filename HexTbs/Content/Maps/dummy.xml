@@ -27,19 +27,19 @@
 </Hexes>
 
 <P1Starts>
-<BMapModelCoordinate><X>1</X><Y>1</Y></BMapModelCoordinate>
-<BMapModelCoordinate><X>1</X><Y>2</Y></BMapModelCoordinate>
-<BMapModelCoordinate><X>1</X><Y>3</Y></BMapModelCoordinate>
-<!--<BMapModelCoordinate><X>1</X><Y>4</Y></BMapModelCoordinate>
-<BMapModelCoordinate><X>1</X><Y>5</Y></BMapModelCoordinate>-->
+<ModelCoordinate><X>1</X><Y>1</Y></ModelCoordinate>
+<ModelCoordinate><X>1</X><Y>2</Y></ModelCoordinate>
+<ModelCoordinate><X>1</X><Y>3</Y></ModelCoordinate>
+<!--<ModelCoordinate><X>1</X><Y>4</Y></ModelCoordinate>
+<ModelCoordinate><X>1</X><Y>5</Y></ModelCoordinate>-->
 </P1Starts>
 
 <P2Starts>
-<BMapModelCoordinate><X>18</X><Y>14</Y></BMapModelCoordinate>
-<BMapModelCoordinate><X>18</X><Y>15</Y></BMapModelCoordinate>
-<BMapModelCoordinate><X>18</X><Y>16</Y></BMapModelCoordinate>
-<!--<BMapModelCoordinate><X>18</X><Y>17</Y></BMapModelCoordinate>
-<BMapModelCoordinate><X>18</X><Y>18</Y></BMapModelCoordinate>-->
+<ModelCoordinate><X>18</X><Y>14</Y></ModelCoordinate>
+<ModelCoordinate><X>18</X><Y>15</Y></ModelCoordinate>
+<ModelCoordinate><X>18</X><Y>16</Y></ModelCoordinate>
+<!--<ModelCoordinate><X>18</X><Y>17</Y></ModelCoordinate>
+<ModelCoordinate><X>18</X><Y>18</Y></ModelCoordinate>-->
 </P2Starts>
 
 </BMapModel>

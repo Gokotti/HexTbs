@@ -68,6 +68,7 @@ namespace HexTbs.Battle.Unit.Actions
             float radians = (float)Math.Atan2(moveTarget.Y - squad.Position.Y, moveTarget.X - squad.Position.X);
             float degree = MathHelper.ToDegrees(radians);
             squad.Direction = BHex.AngleToDirection(degree);
+            squad.MainTurret.TurnTurret(squad.Direction);
          }
 
          // Liikutaan kohti askelta
@@ -105,7 +106,7 @@ namespace HexTbs.Battle.Unit.Actions
             {
                if (e is BVehicleSquad)
                {
-                  e.AddInterruptAction(new VehicleInterruptAttackAction(enemy, (e as BVehicleSquad), squad, (e as BVehicleSquad).MainGun));
+                  e.AddInterruptAction(new VehicleInterruptAttackAction(enemy, (e as BVehicleSquad), squad, (e as BVehicleSquad).MainTurret.Weapon));
                   Path.Clear();
                }
             }

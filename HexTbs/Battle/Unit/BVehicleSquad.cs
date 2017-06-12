@@ -17,7 +17,7 @@ namespace HexTbs.Battle.Unit
 {
    public class BVehicleSquad : BSquad
    {
-      public BVehicleWeapon MainGun { get; protected set; }
+      //public BVehicleWeapon MainGun { get; protected set; }
       public List<BVehicleWeapon> Weapons { get; protected set; }
 
       public BVehicleTurret MainTurret { get; protected set; }
@@ -29,8 +29,9 @@ namespace HexTbs.Battle.Unit
 
       public BVehicleSquad(Vector2 _position) : base(_position)
       {
-         MainGun = new BVehicleWeapon(20, 10, 6, 3, 1, 1);
          Weapons = new List<BVehicleWeapon>();
+
+         SightRange = 20;
 
          Defence = 2;
          Toughness = 5;
@@ -44,7 +45,6 @@ namespace HexTbs.Battle.Unit
 
       public BVehicleSquad(Vector2 _position, VehicleSquadModel model) : base(_position)
       {
-         MainGun = new BVehicleWeapon(20, 10, 6, 3, 1, 1);
          Weapons = new List<BVehicleWeapon>();
 
          Defence = model.Defence;
@@ -58,17 +58,16 @@ namespace HexTbs.Battle.Unit
          MoveType = model.MoveType;
          SightRange = model.SightRange;
 
-         texture = Statics.Textures["Squads//tank"];
+         texture = Statics.Textures[model.Texture];
 
          Direction = (HexDirection)DieRoll.RollDice() - 1;
 
-         MainTurret = new BVehicleTurret(Direction, MainGun);
+         MainTurret = new BVehicleTurret(this, Direction, model.Turret);
       }
 
-      public static VehicleSquadModel LoadSquadModel()
+      public static VehicleSquadModel LoadSquadModel(string path)
       {
          VehicleSquadModel model = null;
-         string path = "Content/Squads/vehtest.xml";
 
          XmlSerializer serializer = new XmlSerializer(typeof(VehicleSquadModel));
          StreamReader reader = new StreamReader(path);
@@ -113,8 +112,9 @@ namespace HexTbs.Battle.Unit
 
          if (los)
          {
-            int[,] grid = BPathfinder.GetRangeGrid(map, Position, MainGun.Range);
-            if (grid[target.X, target.Y] <= MainGun.Range)
+            int[,] grid = BPathfinder.GetRangeGrid(map, Position, MainTurret.Weapon.Range);
+            int range = grid[target.X, target.Y];
+            if (range <= MainTurret.Weapon.Range && range <= SightRange)
             {
                return true;
             }
